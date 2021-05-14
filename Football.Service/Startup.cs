@@ -1,3 +1,4 @@
+using Football.Service.Extensions.ServiceCollectionExtension;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -14,7 +15,7 @@ namespace Football.Service
         {
             // controllers
             services.AddControllers();
-            services.AddTransient
+            services.AddStatisticsClientServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
