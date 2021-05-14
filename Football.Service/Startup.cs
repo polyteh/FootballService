@@ -15,8 +15,12 @@ namespace Football.Service
         {
             // controllers
             services.AddControllers();
+
+            //inject services
             services.AddStatisticsClientServices();
             services.AddFootballServices();
+
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -31,12 +35,19 @@ namespace Football.Service
             app.UseHttpsRedirection();
             app.UseRouting();
 
+            //add swagger
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Football Service API V1");
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
                 endpoints.MapGet("/", async context =>
                 {
-                    await context.Response.WriteAsync("Hello World!");
+                    await context.Response.WriteAsync("Football Service");
                 });
             });
         }
