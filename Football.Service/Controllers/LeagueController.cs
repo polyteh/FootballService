@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace Football.Service.Controllers
 {
     [Route("api/leagues")]
+    [Produces("application/json")]
     public class LeagueController : BaseApiController
     {
         private readonly ILeagueService _leagueService;
