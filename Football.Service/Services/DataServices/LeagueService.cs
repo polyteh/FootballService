@@ -1,17 +1,20 @@
 ﻿using Football.Service.Models.League;
 using Football.Service.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace Football.Service.Services.DataServices
 {
     public class LeagueService : ILeagueService
     {
-        public LeagueModel GetLeague(int id)
+        public async Task<LeagueModel> GetLeague(int id)
         {
-            return new LeagueModel() 
+            var result = new LeagueModel()
             {
                 Id = 1,
-                LeagueName = "test" 
+                LeagueName = "test"
             };
+
+            return result;
         }
     }
 }

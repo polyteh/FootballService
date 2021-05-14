@@ -1,6 +1,8 @@
 ﻿using Football.Service.Models.League;
+using Football.Service.Models.Response;
 using Football.Service.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Football.Service.Controllers
 {
@@ -14,18 +16,15 @@ namespace Football.Service.Controllers
         }
 
         [HttpGet]
-        [Route("")]
-        public void GetLeagues()
-        {
-            var result = _leagueService.GetLeague(2);
-        }
-
-
-        [HttpGet]
         [Route("{id}")]
-        public LeagueModel GetLeague(int id)
+        public async Task<BaseResponse<LeagueModel>> GetLeague(int id)
         {
-            var result = _leagueService.GetLeague(2);
+            var league = await _leagueService.GetLeague(2);
+
+            var result = new BaseResponse<LeagueModel>()
+            {
+                Data = league
+            };
 
             return result;
         }
