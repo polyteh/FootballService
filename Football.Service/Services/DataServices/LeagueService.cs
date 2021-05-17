@@ -18,9 +18,9 @@ namespace Football.Service.Services.DataServices
             _mapper = mapper;
         }
 
-        public async Task<LeagueModel> GetLeague(int id)
+        public async Task<LeagueModel> GetLeagueDetails(int id)
         {
-            var result = await _statisticsLeagueService.GetLeague(id);
+            var result = await _statisticsLeagueService.GetLeagueDetails(id);
 
             var mappedResult = _mapper.Map<LeagueModel>(result);
 

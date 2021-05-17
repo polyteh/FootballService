@@ -5,6 +5,6 @@ namespace Football.Service.Services.Interfaces
 {
     public interface ILeagueService
     {
-        Task<LeagueModel> GetLeague(int id);
+        Task<LeagueModel> GetLeagueDetails(int id);
     }
 }

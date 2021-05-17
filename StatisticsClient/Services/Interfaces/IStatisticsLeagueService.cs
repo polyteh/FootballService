@@ -6,7 +6,7 @@ namespace StatisticsClient.Services.Interfaces
 {
     public interface IStatisticsLeagueService
     {
-        Task<LeagueClientModel> GetLeague (long id);
+        Task<LeagueClientModel> GetLeagueDetails (int id);
         IEnumerable<LeagueClientModel> GetLeagues();
     }
 }

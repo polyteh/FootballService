@@ -20,7 +20,7 @@ namespace Football.Service.Controllers
         [Route("{id}")]
         public async Task<BaseResponse<LeagueModel>> GetLeague(int id)
         {
-            var league = await _leagueService.GetLeague(2);
+            var league = await _leagueService.GetLeagueDetails(2);
 
             var result = new BaseResponse<LeagueModel>()
             {
