@@ -1,20 +1,30 @@
-﻿using Football.Service.Models.League;
+﻿using AutoMapper;
+using Football.Service.Models.League;
 using Football.Service.Services.Interfaces;
+using StatisticsClient.Services.Interfaces;
 using System.Threading.Tasks;
 
 namespace Football.Service.Services.DataServices
 {
     public class LeagueService : ILeagueService
     {
+        private readonly IStatisticsLeagueService _statisticsLeagueService;
+        private readonly IMapper _mapper;
+
+        public LeagueService(IStatisticsLeagueService statisticsLeagueService,
+            IMapper mapper)
+        {
+            _statisticsLeagueService = statisticsLeagueService;
+            _mapper = mapper;
+        }
+
         public async Task<LeagueModel> GetLeague(int id)
         {
-            var result = new LeagueModel()
-            {
-                Id = 1,
-                LeagueName = "test"
-            };
+            var result = await _statisticsLeagueService.GetLeague(id);
 
-            return result;
+            var mappedResult = _mapper.Map<LeagueModel>(result);
+
+            return mappedResult;
         }
     }
 }

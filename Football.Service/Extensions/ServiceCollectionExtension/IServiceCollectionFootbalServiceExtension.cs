@@ -1,4 +1,5 @@
-﻿using Football.Service.Services.DataServices;
+﻿using Football.Service.AutoMapperConfiguration;
+using Football.Service.Services.DataServices;
 using Football.Service.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -6,11 +7,12 @@ namespace Football.Service.Extensions.ServiceCollectionExtension
 {
     public static class IServiceCollectionFootbalServiceExtension
     {
-        public static IServiceCollection AddFootballServices(this IServiceCollection services)
+        public static IServiceCollection AddFootballServices(this IServiceCollection service)
         {
-            services.AddTransient<ILeagueService, LeagueService>();
+            service.AddTransient<ILeagueService, LeagueService>();
+            service.AddSingleton(provider => MappingProfile.GetAutoMapperConfiguration(provider).CreateMapper());
 
-            return services;
+            return service;
         }
     }
 }
