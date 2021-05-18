@@ -9,22 +9,19 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using StatisticsClient.Extensions;
+using StatisticsClient.Services.Data.Rapidapi;
+using StatisticsClient.Interfaces.Shared;
 
 namespace StatisticsClient.Services.DataServices.Rapidapi
 {
-    public class StatisticsLeagueServiceRapidapi : IStatisticsLeagueService
+    public class StatisticsLeagueServiceRapidapi : BaseServiceRapidapi, IStatisticsLeagueService
     {
-        private readonly RestClient _client;
-        private readonly RapidapiConfiguration _rapidapiConfiguration;
-        public StatisticsLeagueServiceRapidapi(IOptionsSnapshot<RapidapiConfiguration> rapidapiConfiguration)
+        public StatisticsLeagueServiceRapidapi(IOptionsSnapshot<RapidapiConfiguration> rapidapiConfiguration, 
+            ISendRequest sendRequest) : base(rapidapiConfiguration, sendRequest)
         {
-            _rapidapiConfiguration = rapidapiConfiguration.Value;
 
-            if (_rapidapiConfiguration != null)
-            {
-                _client = new RestClient(_rapidapiConfiguration.BaseUrl);
-            }
         }
+
         public async Task<LeagueClientModel> GetLeagueDetails(int id)
         {
             var leaguesDetail = new LeagueRapidapiModel();
@@ -37,9 +34,10 @@ namespace StatisticsClient.Services.DataServices.Rapidapi
 
             var request = new RestRequest("standings", Method.GET);
             request.AddRapidapiHeaders(_rapidapiConfiguration);
-            request.AddUrlSegment("season", 2020);
-            request.AddUrlSegment("league", 39);
+            request.AddParameter("season", 2020);
+            request.AddParameter("league", 39);
 
+            var resultt = await _sendRequest.SendLoggedRequest<List<LeagueRapidapiModel>>(_client, request);
 
             var result = new LeagueClientModel()
             {
