@@ -1,81 +1,86 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace StatisticsClient.Models.RapidapiModels
 {
-    public class LeagueRapidapiModel : BaseRapidapiResponse<List<LeagueResponse>>
+    public class LeagueRapidapiModel : BaseRapidapiResponse<List<LeagueRapidapiResponse>>
     {
 
     }
 
-    public class LeagueResponse
+    public class LeagueRapidapiResponse
     {
-        public League League { get; set; }
+        public LeagueRapidapi League { get; set; }
     }
-    public class League
+    public class LeagueRapidapi
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string country { get; set; }
-        public string logo { get; set; }
-        public string flag { get; set; }
-        public int season { get; set; }
-        public List<List<Standing>> standings { get; set; }
-    }
-
-    public class Team
-    {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string logo { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Country { get; set; }
+        public string Logo { get; set; }
+        public string Flag { get; set; }
+        public int Season { get; set; }
+        public List<List<StandingRapidapi>> Standings { get; set; }
     }
 
-    public class Goals
+    public class TeamRapidapi
     {
-        public int @for { get; set; }
-        public int against { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Logo { get; set; }
     }
 
-    public class All
+    public class GoalsRapidapi
     {
-        public int played { get; set; }
-        public int win { get; set; }
-        public int draw { get; set; }
-        public int lose { get; set; }
-        public Goals goals { get; set; }
+        [JsonProperty("for")]
+        public int For { get; set; }
+        public int Against { get; set; }
     }
 
-    public class Home
+    public class AllStatisticsRapidapi
     {
-        public int played { get; set; }
-        public int win { get; set; }
-        public int draw { get; set; }
-        public int lose { get; set; }
-        public Goals goals { get; set; }
+        public int Played { get; set; }
+        public int Win { get; set; }
+        public int Draw { get; set; }
+        public int Lose { get; set; }
+        public GoalsRapidapi Goals { get; set; }
     }
 
-    public class Away
+    public class HomeStatisticsRapidapi
     {
-        public int played { get; set; }
-        public int win { get; set; }
-        public int draw { get; set; }
-        public int lose { get; set; }
-        public Goals goals { get; set; }
+        public int Played { get; set; }
+        public int Win { get; set; }
+        public int Draw { get; set; }
+        public int Lose { get; set; }
+        public GoalsRapidapi Goals { get; set; }
     }
 
-    public class Standing
+    public class AwayStatisticsRapidapi
     {
-        public int rank { get; set; }
-        public Team team { get; set; }
-        public int points { get; set; }
-        public int goalsDiff { get; set; }
-        public string group { get; set; }
-        public string form { get; set; }
-        public string status { get; set; }
-        public string description { get; set; }
-        public All all { get; set; }
-        public Home home { get; set; }
-        public Away away { get; set; }
-        public DateTime update { get; set; }
+        public int Played { get; set; }
+        public int Win { get; set; }
+        public int Draw { get; set; }
+        public int Lose { get; set; }
+        public GoalsRapidapi Goals { get; set; }
+    }
+
+    public class StandingRapidapi
+    {
+        public int Rank { get; set; }
+        public TeamRapidapi Team { get; set; }
+        public int Points { get; set; }
+        public int GoalsDiff { get; set; }
+        public string Group { get; set; }
+        public string Form { get; set; }
+        public string Status { get; set; }
+        public string Description { get; set; }
+        [JsonProperty("all")]
+        public AllStatisticsRapidapi AllStatistics { get; set; }
+        [JsonProperty("home")]
+        public HomeStatisticsRapidapi HomeStatistics { get; set; }
+        [JsonProperty("away")]
+        public AwayStatisticsRapidapi Away { get; set; }
+        public DateTime Update { get; set; }
     }
 }
