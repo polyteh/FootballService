@@ -7,12 +7,12 @@ namespace Football.Service.Extensions.ServiceCollectionExtension
 {
     public static class IServiceCollectionFootbalServiceExtension
     {
-        public static IServiceCollection AddFootballServices(this IServiceCollection service)
+        public static IServiceCollection AddFootballServices(this IServiceCollection services)
         {
-            service.AddTransient<ILeagueService, LeagueService>();
-            service.AddSingleton(provider => MappingProfile.GetAutoMapperConfiguration(provider).CreateMapper());
+            services.AddTransient<ILeagueService, LeagueService>();
+            services.AddSingleton(provider => MappingProfile.GetAutoMapperConfiguration(provider).CreateMapper());
 
-            return service;
+            return services;
         }
     }
 }
