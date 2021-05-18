@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Football.Service.AutoMapperConfiguration.MappingProfiles;
+using StatisticsClient.AutoMapperConfiguration.MappingProfiles.Rapidapi;
 using System;
 
 namespace Football.Service.AutoMapperConfiguration
@@ -11,6 +12,7 @@ namespace Football.Service.AutoMapperConfiguration
             var mapperConfiguration = new MapperConfiguration(cfg=> 
             {
                 cfg.AddProfile(new LeagueMappingProfile());
+                cfg.AddProfile(new LeagueMappingProfileRapidapi());
             }
             );
 

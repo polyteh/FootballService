@@ -11,13 +11,15 @@ using System.Threading.Tasks;
 using StatisticsClient.Extensions;
 using StatisticsClient.Services.Data.Rapidapi;
 using StatisticsClient.Interfaces.Shared;
+using AutoMapper;
 
 namespace StatisticsClient.Services.DataServices.Rapidapi
 {
     public class StatisticsLeagueServiceRapidapi : BaseServiceRapidapi, IStatisticsLeagueService
     {
-        public StatisticsLeagueServiceRapidapi(IOptionsSnapshot<RapidapiConfiguration> rapidapiConfiguration, 
-            ISendRequest sendRequest) : base(rapidapiConfiguration, sendRequest)
+        public StatisticsLeagueServiceRapidapi(IOptionsSnapshot<RapidapiConfiguration> rapidapiConfiguration,
+            ISendRequest sendRequest,
+            IMapper mapper) : base(rapidapiConfiguration, sendRequest, mapper)
         {
 
         }
@@ -32,17 +34,17 @@ namespace StatisticsClient.Services.DataServices.Rapidapi
                 leaguesDetail = JsonConvert.DeserializeObject<LeagueRapidapiModel>(canabisJson);
             }
 
-            var request = new RestRequest("standings", Method.GET);
-            request.AddRapidapiHeaders(_rapidapiConfiguration);
-            request.AddParameter("season", 2020);
-            request.AddParameter("league", 39);
+            //var request = new RestRequest("standings", Method.GET);
+            //request.AddRapidapiHeaders(_rapidapiConfiguration);
+            //request.AddParameter("season", 2020);
+            //request.AddParameter("league", 39);
 
-            var resultt = await _sendRequest.SendLoggedRequest<List<LeagueRapidapiModel>>(_client, request);
+            //var resultt = await _sendRequest.SendLoggedRequest<LeagueRapidapiModel>(_client, request);
+            var mappedResult = _mapper.Map<List<LeagueClientModel>>(leaguesDetail.Response);
 
             var result = new LeagueClientModel()
             {
                 Id = 1,
-                LeagueName = "test"
             };
 
             return result;

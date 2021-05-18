@@ -34,29 +34,12 @@ namespace StatisticsClient.Models.RapidapiModels
     public class GoalsRapidapi
     {
         [JsonProperty("for")]
-        public int For { get; set; }
-        public int Against { get; set; }
+        public int OwnGoals { get; set; }
+        [JsonProperty("against")]
+        public int OpponentGoals { get; set; }
     }
 
-    public class AllStatisticsRapidapi
-    {
-        public int Played { get; set; }
-        public int Win { get; set; }
-        public int Draw { get; set; }
-        public int Lose { get; set; }
-        public GoalsRapidapi Goals { get; set; }
-    }
-
-    public class HomeStatisticsRapidapi
-    {
-        public int Played { get; set; }
-        public int Win { get; set; }
-        public int Draw { get; set; }
-        public int Lose { get; set; }
-        public GoalsRapidapi Goals { get; set; }
-    }
-
-    public class AwayStatisticsRapidapi
+    public class StatisticsRapidapi
     {
         public int Played { get; set; }
         public int Win { get; set; }
@@ -76,11 +59,11 @@ namespace StatisticsClient.Models.RapidapiModels
         public string Status { get; set; }
         public string Description { get; set; }
         [JsonProperty("all")]
-        public AllStatisticsRapidapi AllStatistics { get; set; }
+        public StatisticsRapidapi AllStatistics { get; set; }
         [JsonProperty("home")]
-        public HomeStatisticsRapidapi HomeStatistics { get; set; }
+        public StatisticsRapidapi HomeStatistics { get; set; }
         [JsonProperty("away")]
-        public AwayStatisticsRapidapi Away { get; set; }
+        public StatisticsRapidapi Away { get; set; }
         public DateTime Update { get; set; }
     }
 }
