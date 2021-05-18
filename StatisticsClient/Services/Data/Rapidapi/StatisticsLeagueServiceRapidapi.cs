@@ -8,6 +8,7 @@ using StatisticsClient.Services.Interfaces;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using StatisticsClient.Extensions;
 
 namespace StatisticsClient.Services.DataServices.Rapidapi
 {
@@ -18,6 +19,11 @@ namespace StatisticsClient.Services.DataServices.Rapidapi
         public StatisticsLeagueServiceRapidapi(IOptionsSnapshot<RapidapiConfiguration> rapidapiConfiguration)
         {
             _rapidapiConfiguration = rapidapiConfiguration.Value;
+
+            if (_rapidapiConfiguration != null)
+            {
+                _client = new RestClient(_rapidapiConfiguration.BaseUrl);
+            }
         }
         public async Task<LeagueClientModel> GetLeagueDetails(int id)
         {
@@ -29,6 +35,10 @@ namespace StatisticsClient.Services.DataServices.Rapidapi
                 leaguesDetail = JsonConvert.DeserializeObject<LeagueRapidapiModel>(canabisJson);
             }
 
+            var request = new RestRequest("standings", Method.GET);
+            request.AddRapidapiHeaders(_rapidapiConfiguration);
+            request.AddUrlSegment("season", 2020);
+            request.AddUrlSegment("league", 39);
 
 
             var result = new LeagueClientModel()
